@@ -3,13 +3,14 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDjs3L5OTblv0dTSZcbVORGgdLLrRCav6s",
-    authDomain: "complaintmanagment-6a760.firebaseapp.com",
-    projectId: "complaintmanagment-6a760",
-    storageBucket: "complaintmanagment-6a760.appspot.com",
-    messagingSenderId: "979097121915",
-    appId: "1:979097121915:web:b7408cb9cf58164233dede"
+    apiKey: "AIzaSyAgqSHBnCFUo3Eiti441W-zekJYHSpmuSQ",
+    authDomain: "complaints-91649.firebaseapp.com",
+    projectId: "complaints-91649",
+    storageBucket: "complaints-91649.appspot.com",
+    messagingSenderId: "654130548302",
+    appId: "1:654130548302:web:78df1da6ed594f93e9bd1f"
 };
+
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
