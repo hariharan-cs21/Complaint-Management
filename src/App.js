@@ -6,6 +6,7 @@ import Login from './Components/login';
 import Dashboard from './Components/Dashboard';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import RaisedQuery from './Components/RaisedQuery';
+import Profile from './Components/Profile';
 
 function App() {
   const [isloggedIn, setloggedIn] = useState(localStorage.getItem("isLogged"))
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login setloggedIn={setloggedIn} />} />
         <Route path="/raisedquery" element={<RaisedQuery isloggedIn={isloggedIn} />} />
+        <Route path="/profile" element={<Profile isloggedIn={isloggedIn} user={user} setloggedIn={setloggedIn} />} />
         <Route path="/dashboard" element={<Dashboard isloggedIn={isloggedIn} setloggedIn={setloggedIn} user={user} />} />
       </Routes>
     </Router>

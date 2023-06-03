@@ -80,6 +80,13 @@ function Dashboard({ user, isloggedIn, setloggedIn }) {
             setloggedIn(false)
         })
     }
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+    const handleProfile = () => {
+        navigate("/profile")
+    }
     return (
         <div className="flex h-screen">
             <div
@@ -125,14 +132,22 @@ function Dashboard({ user, isloggedIn, setloggedIn }) {
                     <SidebarButton isOpen={isSidebarOpen} onClick={handleSidebarToggle} />
 
                     <h2 className="text-xl font-semibold ml-1">Grievance Management</h2>
-                    <img className="ml-auto mr-1" src={auth.currentUser?.photoURL} width="30px" height="30px" alt="Avatar" />
-                    <div className="text-right">{user?.displayName}</div>
+                    <img className="ml-auto mr-1" src={auth.currentUser?.photoURL} style={{ borderRadius: "15px" }} width="32px" height="32px" alt="Avatar" onClick={(e) => {
+                        e.stopPropagation();
+                        toggleDropdown();
+                    }} />
+
                 </header>
 
-
+                {isDropdownOpen && (
+                    <div className="absolute right-0 mt-14 p-2 mr-3 w-40 bg-white hover:bg-blue-100 rounded-md shadow-lg">
+                        <option className='hover:bg-blue-200 rounded-md' onClick={LogutUser} style={{ cursor: "pointer" }}>Logout</option>
+                        <option className='hover:bg-blue-200 rounded-md' onClick={handleProfile} style={{ cursor: "pointer" }}>View Profile</option>
+                    </div>
+                )}
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                     {auth.currentUser?.email !== "linktothedeveloper@gmail.com" &&
-                        <div className="flex-grow p-2 mr-1">
+                        <div className="flex-grow p-2 mr-1 mt-6">
                             <div className="flex justify-end">
                                 <button
                                     onClick={handleRaiseQueryClick}
