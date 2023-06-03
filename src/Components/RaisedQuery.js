@@ -5,7 +5,7 @@ import { auth, db } from '../config/firebaseconfig';
 const RaisedQuery = () => {
     const queryCollection = collection(db, "allQueries");
     const [queries, setQueries] = useState([]);
-    const [replyText, setReplyText] = useState('');
+    const [replyTexts, setReplyTexts] = useState({});
 
     useEffect(() => {
         const loadQueries = async () => {
@@ -30,16 +30,17 @@ const RaisedQuery = () => {
 
     const replyQuery = async (queryId) => {
         const queryRef = doc(db, "allQueries", queryId);
-        await updateDoc(queryRef, { reply: replyText });
+        const reply = replyTexts[queryId] || '';
+        await updateDoc(queryRef, { reply });
         setQueries((prevQueries) =>
             prevQueries.map((query) => {
                 if (query.id === queryId) {
-                    return { ...query, reply: replyText };
+                    return { ...query, reply };
                 }
                 return query;
             })
         );
-        setReplyText('');
+        setReplyTexts((prevReplyTexts) => ({ ...prevReplyTexts, [queryId]: '' }));
     };
 
     const rejectQuery = async (queryId) => {
@@ -50,15 +51,20 @@ const RaisedQuery = () => {
         );
     };
 
+    const handleReplyTextChange = (queryId, value) => {
+        setReplyTexts((prevReplyTexts) => ({ ...prevReplyTexts, [queryId]: value }));
+    };
+
     return (
-        <div className="grid grid-cols-1 md:grid-cols-4 mt-2">
+        <div className="w-full grid grid-cols-1 md:grid-cols-4 mt-2 mr-2">
             {queries.map((item) => {
                 return (
                     <div key={item.id}>
                         {(item.queryPerson?.id === auth.currentUser?.uid || auth.currentUser?.email === "linktothedeveloper@gmail.com") &&
-                            <div className="w-64 rounded overflow-hidden shadow-lg bg-white mb-4 mt-2 ml-4">
+                            <div className="rounded overflow-hidden shadow-lg bg-white mb-4 mt-2 ml-4 mr-4">
                                 <div className="px-6 py-2">
-                                    {auth.currentUser?.email === "linktothedeveloper@gmail.com" && item.queryPerson?.name}
+                                    {auth.currentUser?.email === "linktothedeveloper@gmail.com" && <strong>Issue By:</strong>}
+                                    {auth.currentUser?.email === "linktothedeveloper@gmail.com" && <p style={{ fontSize: "14px" }}>{item.queryPerson?.name}</p>}
                                     {((item.queryPerson?.id === (auth.currentUser?.uid)) || (auth.currentUser?.email === "linktothedeveloper@gmail.com")) &&
                                         <>
                                             <div className="font-bold text-l mb-2">{item.summary}</div>
@@ -66,6 +72,7 @@ const RaisedQuery = () => {
                                         </>
                                     }
                                 </div>
+
                                 <div className="px-6 pt-2 pb-2">
                                     {((item.queryPerson?.id === (auth.currentUser?.uid)) || (auth.currentUser?.email === "linktothedeveloper@gmail.com")) &&
                                         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
@@ -95,10 +102,8 @@ const RaisedQuery = () => {
                                                     type='text'
                                                     required
                                                     placeholder='Reply to query'
-                                                    value={replyText}
-                                                    onChange={(e) => setReplyText(e.target.value)
-                                                    }
-                                                />
+                                                    value={replyTexts[item.id] || ''}
+                                                    onChange={(e) => handleReplyTextChange(item.id, e.target.value)} />
                                                 <button
                                                     className="bg-blue-500 text-white py-1 px-1 rounded"
                                                     onClick={() => replyQuery(item.id)}
@@ -113,7 +118,7 @@ const RaisedQuery = () => {
                                             <p>
                                                 {
                                                     <span
-                                                        className={`inline-block rounded-full px-1 py-1 text-sm font-semibold ${item.status === "Resolved"
+                                                        className={`inline-block rounded-full px-2 py-1 text-sm font-semibold ${item.status === "Resolved"
                                                             ? "bg-green-500 text-white"
                                                             : "bg-red-500 text-white"
                                                             }`}
@@ -127,7 +132,8 @@ const RaisedQuery = () => {
 
                                 {((item.queryPerson?.id === (auth.currentUser?.uid)) || (auth.currentUser?.email === "linktothedeveloper@gmail.com")) && item.reply && (
                                     <p className="px-6 py-2 bg-gray-100">
-                                        <strong>Reply:</strong> {item.reply}
+                                        <strong>
+                                            Admin</strong>: {item.reply}
                                     </p>
                                 )}
                             </div>

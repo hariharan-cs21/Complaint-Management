@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { auth, db } from '../config/firebaseconfig';
 import { collection, addDoc } from 'firebase/firestore';
-
 const QueryForm = () => {
   const [Category, setCategory] = useState("")
   const [summary, setSummary] = useState("")
@@ -11,6 +10,7 @@ const QueryForm = () => {
     await addDoc(queryCollection, { Category, summary, description, queryPerson: { name: auth.currentUser.displayName, id: auth.currentUser.uid } })
     alert("Uploaded")
   }
+
   return (
     <div className='flex w-fit xl:w-full'>
       <form className="w-full max-w-lg ml-3">
@@ -40,7 +40,7 @@ const QueryForm = () => {
             </label>
           </div>
           <div className="w-11/12">
-            <input onChange={(e) => { setSummary(e.target.value) }} className="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-blue-500 rounded-md" id="inline-password" />
+            <input onChange={(e) => { setSummary(e.target.value) }} className="bg-white appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white rounded-md" id="inline-password" />
           </div>
         </div>
         <div className="flex items-center mb-4">
@@ -67,7 +67,7 @@ const QueryForm = () => {
           <div className="w-1/3"></div>
           <div className="w-2/3">
             <button onClick={submitQuery} className="shadow bg-blue-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-3 rounded" type="button">
-              Submit
+              Submit issue
             </button>
           </div>
         </div>

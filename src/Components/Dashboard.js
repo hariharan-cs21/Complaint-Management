@@ -60,7 +60,6 @@ function Dashboard({ user, isloggedIn, setloggedIn }) {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [showForm, setShowForm] = useState(false);
-    const [dispQuery, setdispQuery] = useState(false);
     const handleSidebarToggle = () => {
         setIsSidebarOpen(!isSidebarOpen);
         setTimeout(() => {
@@ -69,12 +68,10 @@ function Dashboard({ user, isloggedIn, setloggedIn }) {
     };
 
     const handleRaiseQueryClick = () => {
-        setdispQuery(false);
         setShowForm(true);
     };
     const handleRaisedQueryClick = () => {
-        setShowForm(false);
-        setdispQuery(true);
+        setShowForm(false)
     };
 
     const LogutUser = () => {
@@ -161,7 +158,7 @@ function Dashboard({ user, isloggedIn, setloggedIn }) {
 
                         </div>
                     }
-                    {dispQuery && <RaisedQuery />}
+                    {!showForm && <RaisedQuery />}
                     {showForm && <QueryForm />}
                 </main>
             </div>
