@@ -15,12 +15,13 @@ const Profile = ({ user, setloggedIn }) => {
     }
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <div className="bg-gray-100 rounded-lg p-6 shadow-lg">
+        <div className="flex items-center justify-center h-screen ">
+            <div className="bg-gray-100 rounded-lg p-6 shadow-lg hover:shadow-2xl">
                 <img className="w-20 h-20 rounded-full mx-auto mb-4" src={auth.currentUser?.photoURL} alt="Avatar" />
-                <h3 className="text-xl font-semibold mb-2">{user?.displayName}</h3>
+                <h3 className="text-xl font-semibold mb-2"> {user?.displayName}</h3>
+                <h5 className="mb-2 ">{user?.email}</h5>
                 {dateOfEmailCreation && (
-                    <p className="text-gray-500">Last SignIn: {dateOfEmailCreation.toLocaleDateString('en-GB')}</p>
+                    <p className="text-gray-500">First SignIn: {dateOfEmailCreation.toLocaleDateString('en-GB')}</p>
                 )}
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-4"
