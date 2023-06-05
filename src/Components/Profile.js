@@ -20,7 +20,7 @@ const Profile = ({ user, setloggedIn }) => {
                 <img className="w-20 h-20 rounded-full mx-auto mb-4" src={auth.currentUser?.photoURL} alt="Avatar" />
                 <h3 className="text-xl font-semibold mb-2">{user?.displayName}</h3>
                 {dateOfEmailCreation && (
-                    <p className="text-gray-500">Last SignIn: {dateOfEmailCreation.toLocaleDateString()}</p>
+                    <p className="text-gray-500">Last SignIn: {dateOfEmailCreation.toLocaleDateString('en-GB')}</p>
                 )}
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-4"

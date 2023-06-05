@@ -2,6 +2,7 @@ import React from 'react';
 import { auth, provider } from '../config/firebaseconfig';
 import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import logo from '../images/imageInLogin.jpg'
 
 const Login = ({ setloggedIn }) => {
     let navigate = useNavigate();
@@ -16,7 +17,8 @@ const Login = ({ setloggedIn }) => {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="bg-white border border-gray-300 rounded-lg shadow-md px-6 py-10 max-w-xs mb-2">
+            <div className="bg-white border border-gray-300 rounded-lg shadow-2xl px-6 py-10 max-w-xs mb-2">
+                <img src={logo} alt='img' style={{ borderRadius: "10px" }} height="280px" width="280px" />
                 <div className="mb-6">
                     <h3 className="text-xl font-bold">Grievance Management App</h3>
                 </div>
